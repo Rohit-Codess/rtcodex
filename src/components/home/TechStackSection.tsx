@@ -3,6 +3,20 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import Section from '../ui/Section'
 import Container from '../ui/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+  faJs, 
+  faReact, 
+  faNode, 
+  faAws, 
+  faDocker 
+} from '@fortawesome/free-brands-svg-icons'
+import { 
+  faBolt, 
+  faPaintBrush, 
+  faDatabase, 
+  faGamepad
+} from '@fortawesome/free-solid-svg-icons'
 
 // Enhanced Tech Stack Orbit Component with Moon-like Movement
 function TechStackOrbit() {
@@ -15,12 +29,12 @@ function TechStackOrbit() {
   }, [])
 
   const techStack = useMemo(() => [
-    { name: 'TypeScript', icon: '⚡', color: '#60a5fa', orbitRadius: 120, speed: 0.5 },
-    { name: 'React', icon: '⚛️', color: '#22d3ee', orbitRadius: 120, speed: 0.5 },
-    { name: 'Next.js', icon: '▲', color: '#f8fafc', orbitRadius: 120, speed: 0.5 },
-    { name: 'Tailwind', icon: '🎨', color: '#06b6d4', orbitRadius: 120, speed: 0.5 },
-    { name: 'Node.js', icon: '🟢', color: '#22c55e', orbitRadius: 120, speed: 0.5 },
-    { name: 'Three.js', icon: '🎮', color: '#fbbf24', orbitRadius: 120, speed: 0.5 },
+    { name: 'TypeScript', icon: faBolt, color: '#60a5fa', orbitRadius: 120, speed: 0.5 },
+    { name: 'React', icon: faReact, color: '#22d3ee', orbitRadius: 120, speed: 0.5 },
+    { name: 'Next.js', icon: faBolt, color: '#f8fafc', orbitRadius: 120, speed: 0.5 },
+    { name: 'Tailwind', icon: faPaintBrush, color: '#06b6d4', orbitRadius: 120, speed: 0.5 },
+    { name: 'Node.js', icon: faNode, color: '#22c55e', orbitRadius: 120, speed: 0.5 },
+    { name: 'Three.js', icon: faGamepad, color: '#fbbf24', orbitRadius: 120, speed: 0.5 },
   ], [])
 
   useEffect(() => {
@@ -122,13 +136,14 @@ function TechStackOrbit() {
                 boxShadow: `0 0 15px ${tech.color}40, 0 0 30px ${tech.color}20`,
               }}
             >
-              <span style={{ 
-                color: tech.color,
-                filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6))',
-                textShadow: `0 0 12px ${tech.color}`
-              }}>
-                {tech.icon}
-              </span>
+              <FontAwesomeIcon 
+                icon={tech.icon}
+                style={{ 
+                  color: tech.color,
+                  filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6))',
+                }}
+                className="text-xl md:text-2xl"
+              />
             </div>
           ))}
         </div>
@@ -167,21 +182,20 @@ function AnimatedTechGrid() {
   }, [])
 
   const topRowTech = [
-    { name: 'TypeScript', icon: '⚡', color: '#60a5fa' },
-    { name: 'Next.js', icon: '▲', color: '#f8fafc' },
-    { name: 'React', icon: '⚛️', color: '#22d3ee' },
-    { name: 'Tailwind', icon: '🎨', color: '#06b6d4' },
-    { name: 'Node.js', icon: '🟢', color: '#22c55e' },
-    { name: 'Python', icon: '🐍', color: '#a78bfa' }
+    { name: 'TypeScript', icon: faBolt, color: '#60a5fa' },
+    { name: 'Next.js', icon: faBolt, color: '#f8fafc' },
+    { name: 'React', icon: faReact, color: '#22d3ee' },
+    { name: 'Tailwind', icon: faPaintBrush, color: '#06b6d4' },
+    { name: 'Node.js', icon: faNode, color: '#22c55e' },
+    { name: 'JavaScript', icon: faJs, color: '#a78bfa' }
   ]
 
   const bottomRowTech = [
-    { name: 'AWS', icon: '☁️', color: '#fb923c' },
-    { name: 'Docker', icon: '🐳', color: '#3b82f6' },
-    { name: 'PostgreSQL', icon: '🐘', color: '#8b5cf6' },
-    { name: 'MongoDB', icon: '🍃', color: '#10b981' },
-    { name: 'GraphQL', icon: '📊', color: '#f472b6' },
-    { name: 'Three.js', icon: '🎮', color: '#fbbf24' }
+    { name: 'AWS', icon: faAws, color: '#fb923c' },
+    { name: 'Docker', icon: faDocker, color: '#3b82f6' },
+    { name: 'PostgreSQL', icon: faDatabase, color: '#8b5cf6' },
+    { name: 'MongoDB', icon: faDatabase, color: '#10b981' },
+    { name: 'Three.js', icon: faGamepad, color: '#fbbf24' }
   ]
 
   if (!isMounted) {
@@ -216,15 +230,14 @@ function AnimatedTechGrid() {
                 border: `1px solid ${tech.color}40`
               }}
             >
-              <div 
+              <FontAwesomeIcon 
+                icon={tech.icon}
                 className="text-2xl sm:text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300"
                 style={{
                   filter: `drop-shadow(0 0 10px ${tech.color})`,
                   color: tech.color
                 }}
-              >
-                {tech.icon}
-              </div>
+              />
               <div className="text-white font-medium text-xs sm:text-sm md:text-base">{tech.name}</div>
             </div>
           ))}
@@ -244,15 +257,14 @@ function AnimatedTechGrid() {
                 border: `1px solid ${tech.color}40`
               }}
             >
-              <div 
+              <FontAwesomeIcon 
+                icon={tech.icon}
                 className="text-2xl sm:text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300"
                 style={{
                   filter: `drop-shadow(0 0 10px ${tech.color})`,
                   color: tech.color
                 }}
-              >
-                {tech.icon}
-              </div>
+              />
               <div className="text-white font-medium text-xs sm:text-sm md:text-base">{tech.name}</div>
             </div>
           ))}
