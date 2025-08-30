@@ -2,36 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Sphere } from '@react-three/drei'
-import { useRef } from 'react'
-import * as THREE from 'three'
 import Link from 'next/link'
 import Image from 'next/image'
 
-// 3D Navigation Orb for mobile menu
-function NavOrb({ isOpen }: { isOpen: boolean }) {
-  const orbRef = useRef<THREE.Mesh>(null!)
-  
-  useFrame(() => {
-    if (orbRef.current) {
-      orbRef.current.rotation.y += 0.01
-      orbRef.current.scale.setScalar(isOpen ? 1.2 : 1)
-    }
-  })
-
-  return (
-    <Sphere ref={orbRef} args={[0.5]} position={[0, 0, 0]}>
-      <meshStandardMaterial
-        color={isOpen ? "#f59e0b" : "#3b82f6"}
-        transparent
-        opacity={0.8}
-        roughness={0.1}
-        metalness={0.7}
-      />
-    </Sphere>
-  )
-}
+// (Removed unused NavOrb component)
 
 interface NavbarProps {
   activeSection?: string
@@ -69,29 +43,32 @@ export default function Navbar({ activeSection, setActiveSection }: NavbarProps)
     setActiveSection?.(id)
     setIsMobileMenuOpen(false)
     
-    // If we're trying to go to home section
-    if (id === 'home') {
-      // Check if we're on the projects page or any other page
-      if (typeof window !== 'undefined' && window.location.pathname !== '/') {
-        // Navigate to home page
-        window.location.href = '/'
-      } else {
-        // We're already on home page, scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-    } else if (!isExternal && href.startsWith('#') && mounted) {
-      // For other sections, check if we're on the right page
-      if (typeof window !== 'undefined' && window.location.pathname !== '/') {
-        // Navigate to home page with hash
-        window.location.href = '/' + href
-      } else {
-        // We're on home page, scroll to section
-        const element = document.querySelector(href)
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' })
+    // Add a small delay to ensure mobile menu closes first
+    setTimeout(() => {
+      // If we're trying to go to home section
+      if (id === 'home') {
+        // Check if we're on the projects page or any other page
+        if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+          // Navigate to home page
+          window.location.href = '/'
+        } else {
+          // We're already on home page, scroll to top
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      } else if (!isExternal && href.startsWith('#')) {
+        // For other sections, check if we're on the right page
+        if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+          // Navigate to home page with hash
+          window.location.href = '/' + href
+        } else {
+          // We're on home page, scroll to section
+          const element = document.querySelector(href)
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
         }
       }
-    }
+    }, isMobileMenuOpen ? 300 : 0) // Wait for mobile menu to close
   }
 
   if (!mounted) {
@@ -228,16 +205,26 @@ export default function Navbar({ activeSection, setActiveSection }: NavbarProps)
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden relative w-10 h-10"
+              className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center space-y-1"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <Canvas camera={{ position: [0, 0, 2], fov: 50 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[5, 5, 5]} />
-                <NavOrb isOpen={isMobileMenuOpen} />
-              </Canvas>
+              <motion.div
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                }`}
+              />
+              <motion.div
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+                  isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+                }`}
+              />
+              <motion.div
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+                  isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                }`}
+              />
             </motion.button>
           </div>
         </div>
@@ -255,7 +242,7 @@ export default function Navbar({ activeSection, setActiveSection }: NavbarProps)
               <div className="px-4 py-4 space-y-2">
                 {navItems.map((item, index) => (
                   <motion.div key={item.id}>
-                    {item.isExternal || item.href.startsWith('/') ? (
+                    {item.href.startsWith('/') ? (
                       <Link href={item.href}>
                         <motion.div
                           className={`block w-full text-left px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer ${
@@ -267,6 +254,7 @@ export default function Navbar({ activeSection, setActiveSection }: NavbarProps)
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1 * index }}
                           whileHover={{ x: 10 }}
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {item.label}
                         </motion.div>
