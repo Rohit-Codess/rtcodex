@@ -30,6 +30,14 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  
+  /* Performance optimizations */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 /* Dark cosmic background overlay */
@@ -563,4 +571,74 @@ html {
   50% {
     background-position: 100% 50%;
   }
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+  /* Disable expensive animations on mobile */
+  .animate-slide-left,
+  .animate-slide-right {
+    animation: none !important;
+  }
+  
+  /* Reduce motion for better performance */
+  .card-hover:hover {
+    transform: none !important;
+  }
+  
+  /* Disable complex animations on mobile */
+  .glow-tech-card:hover {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  /* Simplify gradients on mobile */
+  .gradient-text {
+    background: linear-gradient(45deg, #60a5fa, #a78bfa) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+  }
+  
+  /* Reduce blur effects on mobile */
+  .glass-effect {
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+  }
+  
+  /* Disable 3D transforms on mobile */
+  * {
+    -webkit-transform-style: flat !important;
+    transform-style: flat !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-float,
+  .animate-float-delayed,
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Performance boost for hardware acceleration */
+.animate-slide-left,
+.animate-slide-right,
+.card-hover,
+.glass-effect,
+.glow-tech-card {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
 }

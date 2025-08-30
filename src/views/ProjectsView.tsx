@@ -77,12 +77,12 @@ export default function ProjectsView() {
         {/* Footer */}
         <footer className="py-6 md:py-8 border-t border-white/10 relative mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-gray-400 text-sm md:text-base">
-              © 2025 RTcodeX. Built with Next.js, Three.js & Framer Motion.
-            </p>
-            <p className="text-gray-500 text-xs mt-2">
-              Optimized for all devices and connection speeds | Portfolio v2.0
-            </p>
+            <span className="text-gray-400 text-sm md:text-base">
+              © 2024 RTcodeX |
+            </span>
+            <span className="text-gray-500 text-xs mt-2 px-1">
+              All rights reserved
+            </span>
           </div>
         </footer>
       </div>

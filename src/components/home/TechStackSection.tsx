@@ -18,51 +18,59 @@ import {
   faGamepad
 } from '@fortawesome/free-solid-svg-icons'
 
-// Enhanced Tech Stack Orbit Component with Moon-like Movement
+// Enhanced Tech Stack Orbit Component with Performance Optimization
 function TechStackOrbit() {
   const [isMounted, setIsMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const orbitRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<number | null>(null)
   
   useEffect(() => {
     setIsMounted(true)
+    setIsMobile(window.innerWidth <= 768)
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const techStack = useMemo(() => [
-    { name: 'TypeScript', icon: faBolt, color: '#60a5fa', orbitRadius: 120, speed: 0.5 },
-    { name: 'React', icon: faReact, color: '#22d3ee', orbitRadius: 120, speed: 0.5 },
-    { name: 'Next.js', icon: faBolt, color: '#f8fafc', orbitRadius: 120, speed: 0.5 },
-    { name: 'Tailwind', icon: faPaintBrush, color: '#06b6d4', orbitRadius: 120, speed: 0.5 },
-    { name: 'Node.js', icon: faNode, color: '#22c55e', orbitRadius: 120, speed: 0.5 },
-    { name: 'Three.js', icon: faGamepad, color: '#fbbf24', orbitRadius: 120, speed: 0.5 },
+    { name: 'TypeScript', icon: faBolt, color: '#60a5fa', orbitRadius: 120, speed: 0.3 },
+    { name: 'React', icon: faReact, color: '#22d3ee', orbitRadius: 120, speed: 0.3 },
+    { name: 'Next.js', icon: faBolt, color: '#f8fafc', orbitRadius: 120, speed: 0.3 },
+    { name: 'Tailwind', icon: faPaintBrush, color: '#06b6d4', orbitRadius: 120, speed: 0.3 },
+    { name: 'Node.js', icon: faNode, color: '#22c55e', orbitRadius: 120, speed: 0.3 },
+    { name: 'Three.js', icon: faGamepad, color: '#fbbf24', orbitRadius: 120, speed: 0.3 },
   ], [])
 
   useEffect(() => {
     if (!isMounted) return
+
+    // Disable animations on mobile for better performance
+    if (isMobile) return
 
     const getResponsiveRadius = () => {
       return window.innerWidth < 768 ? 120 * 0.6 : 120
     }
 
     const animate = () => {
-      const time = Date.now() * 0.001
+      const time = Date.now() * 0.0005 // Reduced speed for better performance
       
       techStack.forEach((tech, index) => {
         const element = document.getElementById(`orbit-${index}`)
         if (element) {
-          // Calculate circular orbital position
-          const baseAngle = (index * Math.PI * 2) / techStack.length // Evenly distribute icons
-          const currentAngle = baseAngle + (time * tech.speed) // Add rotation over time
+          const baseAngle = (index * Math.PI * 2) / techStack.length
+          const currentAngle = baseAngle + (time * tech.speed)
           const radius = getResponsiveRadius()
           
-          // Perfect circular motion
           const x = Math.cos(currentAngle) * radius
           const y = Math.sin(currentAngle) * radius
           
-          // Simple circular motion without complex 3D effects for now
           element.style.transform = `translate(${x}px, ${y}px)`
           element.style.opacity = '1'
-          element.style.zIndex = '10'
         }
       })
       
@@ -76,7 +84,7 @@ function TechStackOrbit() {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [isMounted, techStack])
+  }, [isMounted, isMobile, techStack])
 
   // Don't render until mounted to avoid SSR issues
   if (!isMounted) {
@@ -173,12 +181,21 @@ function TechStackOrbit() {
   )
 }
 
-// Animated Tech Grid Component
+// Optimized Animated Tech Grid Component
 function AnimatedTechGrid() {
   const [isMounted, setIsMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   
   useEffect(() => {
     setIsMounted(true)
+    setIsMobile(window.innerWidth <= 768)
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const topRowTech = [
@@ -207,7 +224,7 @@ function AnimatedTechGrid() {
           ))}
         </div>
         <div className="flex gap-4 overflow-hidden">
-          {[...Array(6)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <div key={i} className="glass-effect p-4 rounded-xl min-w-[120px] h-[100px] animate-pulse"></div>
           ))}
         </div>
@@ -215,6 +232,57 @@ function AnimatedTechGrid() {
     )
   }
 
+  // Mobile optimized version with reduced animations
+  if (isMobile) {
+    return (
+      <div className="space-y-6 md:space-y-8">
+        {/* Static Grid for Mobile - No sliding animations */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+          {topRowTech.map((tech, index) => (
+            <div
+              key={index}
+              className="glass-effect p-3 rounded-xl text-center hover:bg-white/20 transition-colors duration-300"
+              style={{ 
+                border: `1px solid ${tech.color}40`
+              }}
+            >
+              <FontAwesomeIcon 
+                icon={tech.icon}
+                className="text-xl sm:text-2xl mb-2 transition-transform duration-300"
+                style={{
+                  color: tech.color
+                }}
+              />
+              <div className="text-white font-medium text-xs sm:text-sm">{tech.name}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+          {bottomRowTech.map((tech, index) => (
+            <div
+              key={index}
+              className="glass-effect p-3 rounded-xl text-center hover:bg-white/20 transition-colors duration-300"
+              style={{ 
+                border: `1px solid ${tech.color}40`
+              }}
+            >
+              <FontAwesomeIcon 
+                icon={tech.icon}
+                className="text-xl sm:text-2xl mb-2 transition-transform duration-300"
+                style={{
+                  color: tech.color
+                }}
+              />
+              <div className="text-white font-medium text-xs sm:text-sm">{tech.name}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // Desktop version with animations
   return (
     <div className="space-y-6 md:space-y-8">
       {/* Top Row - Moving Left */}
@@ -276,6 +344,19 @@ function AnimatedTechGrid() {
 
 
 export default function TechStackSection() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768)
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <Section id="tech" background="gradient">
       <Container>
@@ -288,12 +369,14 @@ export default function TechStackSection() {
           </p>
         </div>
 
-        {/* 3D Tech Orbit */}
-        <div className="mb-12 md:mb-16 flex justify-center">
-          <TechStackOrbit />
-        </div>
+        {/* 3D Tech Orbit - Hidden on mobile for better performance */}
+        {!isMobile && (
+          <div className="mb-12 md:mb-16 flex justify-center">
+            <TechStackOrbit />
+          </div>
+        )}
 
-        {/* Animated Tech Grid with Sliding Rows */}
+        {/* Animated Tech Grid with Mobile Optimization */}
         <AnimatedTechGrid />
       </Container>
     </Section>

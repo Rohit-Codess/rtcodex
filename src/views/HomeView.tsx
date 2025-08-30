@@ -80,10 +80,10 @@ export default function HomeView() {
         <footer className="py-6 md:py-8 border-t border-white/10 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span className="text-gray-400 text-sm md:text-base">
-              © 2025 RTcodeX | 
+              © 2024 RTcodeX | 
             </span>
             <span className="text-gray-500 text-xs mt-2 px-1">
-              All sites are reserved
+              All rights reserved
             </span>
           </div>
         </footer>
