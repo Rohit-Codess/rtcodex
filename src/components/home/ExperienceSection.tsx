@@ -7,22 +7,22 @@ import { GlowCard } from '../ui/Card'
 const workExperience = [
   { 
     title: "Frontend Engineer", 
-    description: "React, Next.js, Tailwind CSS, TypeScript", 
+    description: "React, Next.js, Tailwind CSS, TypeScript, JavaScript", 
     icon: "💻" 
   },
   { 
-    title: "Mobile Developer", 
-    description: "React Native, Expo, Flutter", 
-    icon: "📱" 
+    title: "AI-assisted Development", 
+    description: "Style-system automation, component theming", 
+    icon: "🤖" 
   },
   { 
     title: "Backend Engineer", 
-    description: "Node.js, Express, PostgreSQL, Prisma", 
+    description: "Node.js, Express, MongoDB, RESTful API", 
     icon: "⚙️" 
   },
   { 
     title: "Cloud & DevOps", 
-    description: "AWS, Docker, Kubernetes, CI/CD", 
+    description: "automated testing, Docker, Kubernetes, CI/CD", 
     icon: "☁️" 
   }
 ]
