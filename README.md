@@ -31,7 +31,7 @@ A modern, responsive portfolio website built with Next.js, TypeScript, Tailwind 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/RTcodeX.git
+git clone https://github.com/Rohit-Codess/RTcodeX.git
 cd RTcodeX/client
 ```
 
@@ -65,7 +65,7 @@ pnpm dev
 ### Method 1: GitHub Integration (Recommended)
 
 1. Push your code to GitHub
-2. Visit [Vercel](https://vercel.com)
+2. Visit [Vercel](https://www.rtcodex.dev)
 3. Import your GitHub repository
 4. Vercel will automatically detect it's a Next.js project
 5. Set any environment variables in Vercel dashboard
@@ -89,7 +89,7 @@ vercel --prod
 Set these in your Vercel dashboard under Settings > Environment Variables:
 
 ```bash
-NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
+NEXT_PUBLIC_APP_URL=https://www.rtcodex.dev
 # Add other environment variables as needed
 ```
 
@@ -148,4 +148,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Your Name - your.email@example.com
 
-Project Link: [https://github.com/yourusername/RTcodeX](https://github.com/yourusername/RTcodeX)
+Project Link: [https://github.com/Rohit-Codess/RTcodeX](https://github.com/Rohit-Codess/RTcodeX)
