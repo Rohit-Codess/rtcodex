@@ -57,9 +57,9 @@ export default function ContactSection() {
   ]
 
   const socialLinks = [
-    { name: 'GitHub', icon: faGithub, link: 'https://github.com/Rohit-Codess/', color: 'hover:text-blue-400' },
-    { name: 'LinkedIn', icon: faLinkedin, link: 'https://linkedin.com/in/itsrohitdev', color: 'hover:text-blue-400' },
-    { name: 'Twitter', icon: faTwitter, link: 'https://x.com/rohitmahto7479/', color: 'hover:text-blue-400' }
+    { name: 'GitHub', icon: faGithub, link: 'https://github.com/Rohit-Codess/' },
+    { name: 'LinkedIn', icon: faLinkedin, link: 'https://linkedin.com/in/itsrohitdev' },
+    { name: 'Twitter', icon: faTwitter, link: 'https://x.com/rohitmahto7479/' }
   ]
 
   return (
@@ -76,7 +76,7 @@ export default function ContactSection() {
         
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Form */}
-          <Card className="p-6">
+          <Card className="p-6" noAnimation={true}>
             <h3 className="text-xl font-semibold text-white mb-4">Send me a message</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -87,7 +87,7 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/20 transition-colors"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/20"
                 />
               </div>
               <div>
@@ -98,7 +98,7 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/20 transition-colors"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/20"
                 />
               </div>
               <div>
@@ -109,7 +109,7 @@ export default function ContactSection() {
                   onChange={handleInputChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/20 transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/20 resize-none"
                 />
               </div>
               <Button type="submit" className="w-full">
@@ -128,7 +128,7 @@ export default function ContactSection() {
                   href={contact.link}
                   className="block"
                 >
-                  <Card className="p-4 hover:border-white/20 transition-colors">
+                  <Card className="p-4" noAnimation={true}>
                     <div className="flex items-center space-x-4">
                       <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${contact.color} flex items-center justify-center text-xl`}>
                         <FontAwesomeIcon icon={contact.icon} className="text-white" />
@@ -144,7 +144,7 @@ export default function ContactSection() {
             </div>
 
             {/* Social Media */}
-            <Card className="p-4">
+            <Card className="p-4" noAnimation={true}>
               <h4 className="text-lg font-semibold text-white mb-4">Follow me on social media</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
@@ -153,7 +153,7 @@ export default function ContactSection() {
                     href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-12 h-12 bg-white/5 border border-white/10 hover:border-white/20 rounded-full flex items-center justify-center text-xl text-gray-300 ${social.color} transition-colors`}
+                    className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-xl text-gray-300"
                   >
                     <FontAwesomeIcon icon={social.icon} />
                   </a>

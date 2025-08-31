@@ -7,17 +7,21 @@ interface CardProps {
   className?: string
   hover?: boolean
   glow?: boolean
+  noAnimation?: boolean
 }
 
 export default function Card({ 
   children, 
   className = '', 
   hover = true,
-  glow = false 
+  glow = false,
+  noAnimation = false 
 }: CardProps) {
-  const baseClasses = "glass-effect rounded-xl border border-white/20 transition-all duration-300"
-  const hoverClasses = hover ? "hover:bg-white/20 card-hover" : ""
-  const glowClasses = glow ? "glow-effect" : ""
+  const baseClasses = noAnimation 
+    ? "glass-effect-static rounded-xl border border-white/20" 
+    : "glass-effect rounded-xl border border-white/20 transition-all duration-300"
+  const hoverClasses = (hover && !noAnimation) ? "hover:bg-white/20 card-hover" : ""
+  const glowClasses = (glow && !noAnimation) ? "glow-effect" : ""
 
   return (
     <div className={`${baseClasses} ${hoverClasses} ${glowClasses} ${className}`}>
